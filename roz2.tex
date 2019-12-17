@@ -1,0 +1,71 @@
+\chapter{Przegląd algorytmów z literatury}
+
+\section{Wstępne przetwarzanie obrazu}
+Pierwszym etapem detekcji pasów ruchu drogowego jest konwersja obrazu kolorowego w~formacie RGB (ang. \textit{Red, Green, Blue} -- czerwony, zielony, niebieski) na~obraz binarny.
+Proces ten ma na celu aby wstępnie otrzymać cechy określające dany obraz oraz ułatwić dalsze jego przetwarzanie. W celu ułatwienia konwersji z kolorowego na binarny, możemy przekonwertować wstępnie obraz do formatu w skali szarości. 
+
+Każdy piksel w~formacie RGB składa się z trzech kanałów, każdy przyjmuje wartośći z~przedziału od 0 do 255, gdzie 0 oznacza brak nasycenia danego koloru, a 255 maksymalne nasycenie.
+W skali szarości na jeden piksel przypada tylko jeden kanał przyjmujący wartości od 0 do 255.
+Dla obrazu binarnego na jeden piksel również przypada tylko jeden kanał, ale może przyjmowac wartości o lub 1, gdzie 0 to brak nasycenia kolorów, a 1 to pełne nasycenie kolorów.
+Obraz w skali szarości z obrazu w~formacie RGB można otrzymać, np. wyznaczająć średnią wartość trzech kanałów dla każdego z pikseli \cite{4}.
+
+
+Jednym z metod konwersji obrazu ze skali szarości do binarnego, który zaproponowano w~pracy \cite{4}, jest zwiększenie kontrastu dzięki wykorzystaniu rozciągania histogramu. Następnie korzystając z filtru Sobel'a uwydatnia się krawędzie obiektów, które ma na celu ułatwienie późniejszej detekcji linii pasa ruchu drogowego. Kolejno wykorzystuje się progowanie polegające na przypisywaniu wartości 0 lub 1 do piksela w zależności od tego czy jego wartość jest mniejsza od wartości progu, czy nie. Operator Sobel'a jest zasadniczo operatorem różniczkowania dyskretnego, zwraca pochodne pierunkowe obrazu w ośmiu kierunkach co 45 stopni \cite{3}, \cite{sobel}.
+
+%tutaj
+Innym podejściem \cite{reichenbach2018comparison} jest wykorzystanie algorytmu Canny Edge Detector w miejscu filtra Sobel'a. Canny Edge łączy w sobie filtr sobela i zdefiniowaną histerezę \cite{cany}. Jeśli wartośc gradientu $G$ \eqref{eq:1} piksela jest powyżej ustalonego progu górnego, zaliczany jest do zbioru krawędzi. Gdy jest poniżej ustalonego progu dolnego piksel jest odrzucany. Gdy znajduje się pomiędzy oboma wspomnianymi progami, piksel zostanie zaliczony do zbioru krawędzi jeśli sąsiaduje z pikselem zaklasyfikowanym jako krawędź.
+
+\begin{equation}
+G_{x} = \begin{bmatrix} -1 & 0 & +1 \\ -2 & 0 & +2 \\ -1 & 0 & +1 \end{bmatrix}, G_{y} = \begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ +1 & +2 & +1 \end{bmatrix},
+G = \sqrt{ G_{x}^{2} + G_{y}^{2} } \label{eq:1}
+\end{equation}
+
+Próg binaryzacji można również dobrać samodzielnie, np. przyjmując, że jej wartość jest równa połowie wartości maksymalnej jaką może mieć piksel \cite{1}. Innym podejściem, zaprezentowanym w~artykule \cite{2}, jest wykorzystanie funkcji entropii lub histogramu.
+Histogram obrazu jest to sposób reprezentacji rozkładu wartości piksleli, z~których składa się obraz. 
+Może przyjmować formę interpolowanego wykresu, gdzie pozioma oś układu współrzędnych odpowiada za wartość piksela. 
+Pionowa oś reprezentuje liczebność punktów o~wartości równej wartości argumentu znajdującego się na~poziomej osi \cite{histogram}.
+Na rysunku \ref{fig:entr_hist} przedstawiono zestawienie wykresu danego histogramu oraz wykresu funkcji entropii. 
+Funkcje te mają charakterystyczną cechę wspólną. 
+Argument dla drugiej największej wartości funkcji entropii jest równy argumentowi dla jakiego histogram przyjmuje wartość maksymalną. Próg binaryzujący znajduje się pomiędzy dwoma największymi wierzchołkami funkcji entropii.
+
+\begin{figure}
+	\includegraphics[scale=0.8]{Entropia.png}
+	\caption{Porównanie histogramu i funkcji entropii. Źródło: \cite{2}}
+	\label{fig:entr_hist}
+\end{figure}
+
+
+\section{Wyznaczanie linii drogowych}
+W tym etapie skupimy się na detekcji pasów ruchu poprzez wyznaczenie linii na~podstawie obrazu binarnego. 
+W~artykule \cite{reichenbach2018comparison} wykorzystano w tym celu transformatę Hough'a. 
+Jest to metoda wykrywania prostych w~widzeniu komputerowym \cite{hough}.
+
+Prostą znajdującą się na obrazie o współrzędnych kartezjańskich ${x,y}$ można zapisać jako punkt w układzie o współrzędnych $\theta$, $\rho$ \ref{fig:rotheta} (przestrzeń Hough'a) spełniający zależność \eqref{eq:2}, gdzie $\theta$ - kąt nachylenia, $\rho$ - odległość od początku układu współrzędnych.
+
+\begin{equation}
+\,x\cos(\theta )+\,y\sin(\theta )=\rho \label{eq:2}
+\end{equation}
+
+
+W celu wyznaczenia pełnego obrazu w przestrzeni Hough'a należy przeiterować po całym obrazie przetwarzanym i dla każdego piksela o wartości 1 (białego) zaznaczyć w układzie $\theta$, $\rho$ wszystkie punkty odpowiadające prostym we współrzędnych ${x,y}$ jakie mogą przechodzić przez ten piksel.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.8]{hough_rotheta.png}
+	\caption{Graficzne przedstawienie zależności współrzędnych ${x,y}$ i $\theta$, $\rho$. Źródło: \cite{hough_rotheta}}
+	\label{fig:rotheta}
+\end{figure}
+
+Zakres grubości linii znajdujących się przykładowo na autostradzie jest ściśle określony. 
+Ta zależność została wykorzystana w pracy \cite{4}, gdzie użyto filtru wykrywającego linie ruchu drogowego. Działa on na zasadzie sprawdzania odległości w~poziomie pomiędzy dwoma białymi pikselami. Jeśli mieści się on w ustalonej normie oznacza to, że punkty leżą na linii.
+Zakres dobierany jest w~zależności od badanej części obrazu \ref{fig:lmps_sobe}. 
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{lmps_sobe.png}
+	\caption{Zdjęcie przedstawiająca sprawdzanie odległości w poziomie pomiędzy dwoma białymi pikselami. Źródło: \cite{4}}
+	\label{fig:lmps_sobe}
+\end{figure}
+

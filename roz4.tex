@@ -1,0 +1,11 @@
+\chapter{Implementacja modelu programowego}
+
+W celu przetestowania wybranych algorytmów zdecydowano się wykorzystać tzw. model programowy tworzonej aplikacji. 
+Do zaimplementowania prototypu wybrano komputer z~procesorem Intel Core i7 6700HQ. 
+Posłużono się językami programowania Matlab.
+Z racji tego, że algorytmy miały zostać zaimplementowane z~myślą o~późniejszych przeniesieniu ich na część reprogramowalną platformy Zynq SoC.
+%Język Python okazał się niewystarczającym narzędziem z~racji tego, że algorytmy miały zostać zaimplementowane z~myślą o~późniejszych przeniesieniu ich na część reprogramowalną platformy Zynq SoC. 
+Na jeden takt zegara otrzymuje się jeden piksel (co wynika ze sposobu obsługi sygnału wideo).
+Z każdym kolejnym taktem otrzymuje się kolejne piksele. W~celu przeprowadzenie operacji kontekstowych należy korzystając z~linii opóźniających zrobić tak, aby w~danym takcie zegara mieć dostęp do wszystkich pikseli tworzących kontekst. Takie podejście powoduje, że niektóre algorytmy nie są możliwe do zaimplementowania. Należy zrezygnować ze wszystkich algorytmów, w których każdy kolejny krok algorytmu jest zależny od danych wejściowych, np. segmentacja przez rozrost. %Model programowy zbudowano tak, że w~jednej iteracji otrzymywano dostęp do jednego piksela. Taka funkcjonalność zaimplementowana w języku Python wprowadza bardzo duże opóźnienia. Jest to spowodowane faktem, że w~tym języku tabela elementów reprezentowana jest jako tabela wskaźników, gdzie każdy wskaźnik odnosi się do odpowiedniego miejsca w~pamięci. %Język Cython jest połączeniem języka Python oraz C. W~tym języku istnieje możliwość stworzenia tabeli, do której obsługi wystarczy jeden wskaźnik. Wszystkie elementy tabeli zapisane są w~pamięci komputera w~sposób uporządkowany. Odwołując się do kolejnych wartości tabeli wykorzystuje się tylko jeden wskaźnik. Powoduje to znacznie szybsze wykonanie iteracji po obrazie. Dlatego też funkcje przetwarzające obraz zdecydowano się napisać w~języku Cython. Plik główny, w~którym wykonywane są wspomniane funkcje napisany został w języku Python.% Do wczytania pliku wideo wykorzystano bibliotekę OpenCV.
+
+Aplikacja ma na celu detekcję punktów reprezentujących prawą i lewą linie drogową. %W implementacji programowej zdecydowano się wykorzystać bibliotekę OpenCV do aproksymacji wielomianowej wyznaczonych punktów.
