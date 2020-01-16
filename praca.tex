@@ -1,4 +1,4 @@
-\documentclass[11pt]{aghdpl1}
+\documentclass[11pt]{aghdpl}
 % \documentclass[en,11pt]{aghdpl}  % praca w języku angielskim
 
 % Lista wszystkich języków stanowiących języki pozycji bibliograficznych użytych w pracy.
@@ -16,6 +16,8 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amsthm}
+%\usepackage{natbib}
+\usepackage{gensymb}
 
 % --- < bibliografia > ---
 
@@ -38,7 +40,7 @@ url=false,
 % Ustawienia związane z polskimi normami dla bibliografii.
 maxbibnames=3,
 % Jeżeli używamy BibTeXa:
-backend=bibtex
+backend=biber
 ]{biblatex}
 
 \usepackage{csquotes}
@@ -135,7 +137,7 @@ backend=bibtex
 \faculty{Wydział Elektrotechniki, Automatyki,\protect\\[-1mm] Informatyki i Inżynierii Biomedycznej}
 %\faculty{Faculty of Electrical Engineering, Automatics, Computer Science and Biomedical Engineering}
 
-\acknowledgements{Miejsce z podziękowaniami.}
+\acknowledgements{Składam serdeczne podziękowania Panu Tomaszowi Kryjakowi za okazywaną cierpliwość i pomoc}
 
 
 \setlength{\cftsecnumwidth}{10mm}
@@ -169,7 +171,7 @@ backend=bibtex
 \include{roz5}
 \include{roz6}
 \include{roz7}
-%\include{tests}
+\printbibliography
 
 
 
@@ -178,7 +180,6 @@ backend=bibtex
 % \include{dodatekA}
 % \include{dodatekB}
 % itd.
-
 %\printbibliography
 
 \end{document}
