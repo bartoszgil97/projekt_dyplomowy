@@ -1,25 +1,40 @@
 \chapter{Wprowadzenie}
 
-Samochód  autonomiczny jest to pojazd sterowany przez system komputerowy, w~oparciu o~dane z~wielu różnorodnych czujników. 
+Samochód  autonomiczny to pojazd sterowany przez system komputerowy, w~oparciu o~dane z~wielu różnorodnych czujników. 
 Według klasyfikacji SAE (ang. \textit{Society of Automotive Engineers} -- związek inżynierów zajmujących się motoryzacją) rozróżnia się pięć poziomów autonomizacji. 
+%TODO 1. de facto to 6 0-5, może je Pan krótko omówić.
 Ostatni z~nich zakłada, że w sterowanie samochodu nie ma żadnej ingerencji ze strony człowieka. 
 Pozostałe cztery odnoszą się do~różnego stopnia zaawansowania systemu ADAS (ang.\textit{Advanced Driving Assistance System} -- zaawansowany system wspomagania kierowcy).
+%TODO Nieprawda. 4 i 5 autonomiczność, 3 częściowoa 0 - brak, 1-2 ADAS.
 
 Zadaniem systemów ADAS jest wspomaganie człowieka w czasie jazdy tj. wykrywanie i ostrzeganie o sytuacjach niebezpiecznych dla kierowcy i otoczenia. 
 W~sytuacjach krytycznych komputer pokładowy jest w~stanie przejąć kontrolę nad autem i~wykonać manewr zapobiegający wypadkowi. 
 Do postrzegania otoczenia wykorzystuje się czujniki takie jak radar, lidar, GPS, kamery, IMU (ang. \textit{inertial measurement unit}) oraz czujniki ultradźwiękowe.
 
-
-
 Do podstawowych systemów ADAS zalicza się:
 \begin{itemize}
-	\item asystent parkowania - czujniki ultradźwiękowe rozmieszczone wokół samochodu umożliwiają mierzenie odległości pojazdu od innych przeszkód ułatwiając manewrowanie przy parkowaniu,
-	\item monitorowanie martwego pola - kamery rozmieszczone bo bokach samochodu zbierają informacje z przestrzeni, których kierowca nie jest w stanie kontrolować wykorzystując z pomocy lusterek,
-	\item ostrzeganie o kolizji przedniej, tylnej - tempomaty znajdujące się z przodu i z tyłu auta mierzą prędkość z jaką pojazd zbliża się do przeszkody. Gdy jest zbyt duża i istnieje ryzyko kolizji, system uruchomia alarm w postaci wizualnej lub dźwiękowej, a nawet dostosuje prędkość w celu uniknięcia kolizji,
-	\item detekcja i rozpoznawanie znaków drogowych - system wykrywa i informuje kierowcę o znakach i~uruchamia sygnał alarmowy w przypadku niedostosowania się do nich,
-	\item detekcja samochodów i pieszych - system przy pomocy kamer wykrywa ludzi i pojazdy znajdujące się w najbliższym otoczeniu oraz wyznacza ich przewidywaną ścieżkę ruchu. Jeśli istnieje ryzyko kolizji zostanie uruchomiony alarm. A w sytuacji krytycznej auto zahamuje,
-	\item system ostrzegania przed opuszczeniem pasa ruchu (ang. \textit{Lane Departure Warning System}) -- jest to~mechanizm opierający się na detekcji linii drogowych i rozpoznawaniu jezdni. W~sytuacji, w~której samochód zaczyna zmieniać pas ruchu bez uprzedno włączonego odpowiedniego kierunkowskazu system wysyła ostrzeżenie do~kierowcy. Może to być sygnalizacja w postaci wizualnej, dźwiękowej lub wibracji. Wyróżnia się też bardziej zaawansowane wersje oprogramowania, w~których system przejmuje kontrolę nad układem kierowniczym i~nie pozwala na~zmianę pasa ruchu przez pojazd lub kieruje nim na środek pasa. Tego typu systemy zostały zaprojektowane w~celu zminimalizowania liczby wypadków drogowych wynikających z~błędów kierowców powodowanych między innymi przez zmęczenie bądź utrate koncentracji.
+	\item asystent parkowania -- czujniki ultradźwiękowe rozmieszczone wokół samochodu umożliwiają określając odległości pojazdu od innych przeszkód ułatwiając manewrowanie przy parkowaniu,
+	%TODO doprecyzować, czy chodzi Panu o parkowania automatyczne, pół-automatyczne, czy same czujniki, co nie jest ADAS.
+	\item monitorowanie martwego pola -- kamery lub radary rozmieszczone bo bokach samochodu pozwalają na kontrolę obszaru, którego nie obejmują lusterka wsteczne.
+	\item ostrzeganie o kolizji przedniej, tylnej -- tempomaty znajdujące się z przodu i z tyłu auta mierzą prędkość z jaką pojazd zbliża się do przeszkody. 
+	%TODO no to Pan napisał tzw. bzdurę !!! co to jest tempomat
+	Gdy jest zbyt duża i istnieje ryzyko kolizji, system uruchomia alarm w postaci wizualnej lub dźwiękowej, a nawet dostosuje prędkość w celu uniknięcia kolizji,
+	%TODO swoją drogą to jak ma to działać w przypadku kolizji tylnej
+	
+	\item detekcja i rozpoznawanie znaków drogowych -- system wykrywa i informuje kierowcę o znakach i~uruchamia sygnał alarmowy w przypadku niedostosowania się do nich,
+	
+	\item detekcja samochodów i pieszych -- system przy pomocy kamer, lidara lub radaru wykrywa ludzi i pojazdy znajdujące się w najbliższym otoczeniu oraz wyznacza ich przewidywaną ścieżkę ruchu. Jeśli istnieje ryzyko kolizji zostanie uruchomiony alarm, a~w~sytuacji krytycznej auto samodzielnie zahamuje,
+	
+	\item system ostrzegania przed opuszczeniem pasa ruchu (ang. \textit{Lane Departure Warning System}) -- jest to~mechanizm opierający się na detekcji linii drogowych i rozpoznawaniu obszaru jezdni. 
+	W~sytuacji, w~której samochód zaczyna zmieniać pas ruchu bez uprzednio włączonego odpowiedniego kierunkowskazu, system wysyła ostrzeżenie do~kierowcy. 
+	Może to być sygnalizacja w postaci wizualnej, dźwiękowej lub wibracji. 
+	Wyróżnia się też bardziej zaawansowane wersje oprogramowania, w~których system przejmuje kontrolę nad układem kierowniczym i~nie pozwala na~zmianę pasa ruchu przez pojazd lub kieruje nim na środek pasa.
+	Tego typu systemy zostały zaprojektowane w~celu zminimalizowania liczby wypadków drogowych wynikających z~błędów kierowców powodowanych między innymi przez zmęczenie bądź utratę koncentracji.
 \end{itemize}
+
+%TODO Może Pan dopisać, że z zaawansowanych wersji powyższych systemów można stworzyć pojazd autonomiczny.
+%TODO Koniec sprawdzania !!!!
+
 
 W ostanim czasie można zauważyć spory rozwój w dziedzinie pojazdów bezzałogowych. Jest to spowodowane widocznym rozwojem w dziedzinie sensoryki. oraz jednostek obliczeniowych w dziedzinie CPU (ang. \textit{Central Processing Units}) i GPGPU (ang. \textit{General Purpose computing on Graphics Processing Units}). Dodatkowo kolejny firmy motoryzacyjne starają się osiagac coraz to lepsze rozwiązania w celu wyróznienia się na tle konkurancji i zdobycia większego rozgłosu. Na horyzoncie już widać pierwsze przymiarki do oficialnego startu sezonu wyścigów samochodów autonomicznych Roborace \cite{roborace}. Przez długi czas wyścigi samochodowe były poligonem doświadczalnym dla nowych technologii, które następnie mogły trafić do samochodów drogowych. Aktualnie większość elektronicznych wspomagaczy kierowcy zostało zakazanych w Formule 1 i wpływ wyscigów uległ osłabieniu. Ale skoro w przyszłości mamy poruszać się pojazdami autonomicznymi, Roborace może pomóc w opracowywaniu nowej technoligii takich pojazdów.
 
