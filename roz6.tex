@@ -1,3 +1,208 @@
 \chapter{Testy}
 
 Zaimplementowane algorytmy przetestowano na materiałach pobranych z internetu \cite{Geiger2013IJRR}.
+Na~zdjęciu \ref{fig:mod_img_test1} przedstawiono obraz oryginalny z~naniesionymi niebieską i~zieloną krzywą, które powstały w~wyniku aproksymacji wielomianowej środków ciężkości (czerwone punkty).
+Na~zdjęciu \ref{fig:mod_img_test1_bin} przedstawiono efekt binaryzacji, a~na~zdjęciu \ref{fig:mod_img_test1_roi} już po wyznaczeniu ROI. Na~obrazie \ref{fig:mod_img_test1_lmps} po~zastosowaniu filtru LMPS. W~tym wypadku detekcja linii przebiegła bez żadnych problemów.
+
+W~sytuacji, gdy na drogę pada zbyt mocne światło i odbija się od niej, tak jak zostało przed stawione na zdjęciach \ref{fig:mod_img_test2}, \ref{fig:mod_img_test3} i \ref{fig:mod_img_test4}, detekcji linii napotykał nie była już tak poprawna jak przy jednolitym oświetleniu.
+Na obrazku \ref{fig:mod_img_test2}, można zauważyć, że~pomimo pewnych błędów otrzymana krzywa jest wględnie pokrywająca się z  pasami ruchu. Natomiast na obrazku \ref{fig:mod_img_test3} pomimo refleksów udało się poprawnie wykryć lewy pas ruchu drogowego.
+Najgorzej przebiegła detekcja linii na obrazku \ref{fig:mod_img_test4}, gdzie filtracja LMPS najgorzej poradziła sobie z odfiltrowaniem zakłóceń wynikających z refleksów świetlnych.
+
+W przypadku zdjęcia \ref{fig:mod_img_test5} mamy do czynienia z mocno zacienionym prawym pasem ruchu oraz fragment jezdni z skośnymi pasami z lewej. W wyniku bardzo jasnej scenerii zdjęcia, pas znajdujący się w cieniu jest ciemniejszy niż zakładany próg binaryzacji w wyniku czego, nie został on poprawnie wykryty. Dodatkowo filtr LMPS nie poradził sobie w pełni poprawnie z odfiltrowaniem skośnych pasów, co zaburzyło późniejsze obliczanie środków ciężkości.
+
+Algorytm nie ma problemów z detekcją jezdni w przypadku prostej drogi i dobrych warunków oświetleniowych.
+wyzwanie pojawia się przy nie jednolitym oświetleniu, gdyż albo część obiektów zlewa się w refleksach świetlnych, albo zostaje ukrytych w cieniu, co znacząco utrudnia późniejszą detekcję linii pasa ruchu drogowego przez filtr LMPS.
+
+\begin{figure}[h]
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{test1_color_linie.png}
+		\caption{Obraz prostej drogi z naniesionymi środkami ciężkości oraz wykrytymi liniami.}
+		\label{fig:mod_img_test1}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test1_bin.png}
+		\caption{Obraz \ref{fig:mod_img_test1} po zbinaryzowaniu.}
+		\label{fig:mod_img_test1_bin}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test1_roi.png}
+		\caption{Obraz \ref{fig:mod_img_test1_bin} po wyznaczeniu ROI.}
+		\label{fig:mod_img_test1_roi}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test1_lmps.png}
+		\caption{Obraz \ref{fig:mod_img_test1_roi} po zastosowaniu filtru LMPS.}
+		\label{fig:mod_img_test1_lmps}
+	\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{test2_color_linie.png}
+		\caption{Obraz prostej drogi z refleksami wraz z naniesionymi środkami ciężkości oraz wykrytymi liniami.}
+		\label{fig:mod_img_test2}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test2_bin.png}
+		\caption{Obraz \ref{fig:mod_img_test2} po zbinaryzowaniu.}
+		\label{fig:mod_img_test2_bin}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test2_roi.png}
+		\caption{Obraz \ref{fig:mod_img_test2_bin} po wyznaczeniu ROI.}
+		\label{fig:mod_img_test2_roi}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test2_lmps.png}
+		\caption{Obraz \ref{fig:mod_img_test2_roi} po zastosowaniu filtru LMPS.}
+		\label{fig:mod_img_test2_lmps}
+	\end{minipage}
+\end{figure}
+
+
+
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{test3_color_linie.png}
+		\caption{Obraz prostej drogi z refleksami wraz z naniesionymi środkami ciężkości oraz wykrytymi liniami.}
+		\label{fig:mod_img_test3}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test3_bin.png}
+		\caption{Obraz \ref{fig:mod_img_test3} po zbinaryzowaniu.}
+		\label{fig:mod_img_test3_bin}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test3_roi.png}
+		\caption{Obraz \ref{fig:mod_img_test3_bin} po wyznaczeniu ROI.}
+		\label{fig:mod_img_test3_roi}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test3_lmps.png}
+		\caption{Obraz \ref{fig:mod_img_test3_roi} po zastosowaniu filtru LMPS.}
+		\label{fig:mod_img_test3_lmps}
+	\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{test4_color_linie.png}
+		\caption{Obraz prostej drogi z refleksami wraz z naniesionymi środkami ciężkości oraz wykrytymi liniami.}
+		\label{fig:mod_img_test4}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test4_bin.png}
+		\caption{Obraz \ref{fig:mod_img_test4} po zbinaryzowaniu.}
+		\label{fig:mod_img_test4_bin}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test4_roi.png}
+		\caption{Obraz \ref{fig:mod_img_test4_bin} po wyznaczeniu ROI.}
+		\label{fig:mod_img_test4_roi}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test4_lmps.png}
+		\caption{Obraz \ref{fig:mod_img_test4_roi} po zastosowaniu filtru LMPS.}
+		\label{fig:mod_img_test4_lmps}
+	\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{test5_color_linie.png}
+		\caption{Obraz prostej drogi z mocno zacienionym pasem ruchu, wraz z naniesionymi środkami ciężkości oraz wykrytymi liniami.}
+		\label{fig:mod_img_test5}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test5_bin.png}
+		\caption{Obraz \ref{fig:mod_img_test5} po zbinaryzowaniu.}
+		\label{fig:mod_img_test5_bin}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test5_roi.png}
+		\caption{Obraz \ref{fig:mod_img_test5_bin} po wyznaczeniu ROI.}
+		\label{fig:mod_img_test5_roi}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.15]{test5_lmps.png}
+		\caption{Obraz \ref{fig:mod_img_test5_roi} po zastosowaniu filtru LMPS.}
+		\label{fig:mod_img_test5_lmps}
+	\end{minipage}
+\end{figure}
+
+Dodatkowo w celu przetestowania algorytmu w przypadku zmiany pasa ruchu i przypadku z pasami w kolorze żółtym posłużyłem się nagraniem jazdy po autostradzie, z przedniej kamery samochodowej, pobranym z internetu \cite{youtube_mat}.
+Na zdjęciu \ref{fig:mod_img_test6} przedstawiono wynik poprawnej detekcji pasów podczas jazdy prosto.
+Podczas manewru zmiany pasa ruchu \ref{fig:mod_img_test6_a}, \ref{fig:mod_img_test6_b} lewa linia pasa ruchu przestaje być wykrywana. Jest to spowodowane wyznaczaniem ROI, gdyż linia zostaje przesuniętą po za obszar detekcji. Natomiast prawa linia jest wykrywa bez zarzutów.
+Na zdjęciu \ref{fig:mod_img_test6_c} przedstawiono rezultat wykorzystanych algorytmów, w~sytuacji gdy prawa linia  drogowa ma kolor żółty, a lewa dalej biały.
+Detakcja przebiegła poprawnie dla obu przypadków. Z czego nawet lepiej dla linii żółtej, wykryto więcej środków ciężkości, co może być spowodowane mniejszymi odstępami pomiędzy linia pasa ruchu.
+
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.3]{test_prosta.png}
+		\caption{Detekcja na prostej drodze na autostradzie.}
+		\label{fig:mod_img_test6}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.3]{test_zmiana_pasa.png}
+		\caption{Początek manewru zmiana pasa ruchu.}
+		\label{fig:mod_img_test6_a}
+	\end{minipage}
+\end{figure}
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.3]{test_srodek_zmiany_pasa.png}
+		\caption{Kontyunacja manewru wyprzedzania.}
+		\label{fig:mod_img_test6_b}
+	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.3]{test_zolty_pas.png}
+		\caption{Detekcja linii z białymi i żółtymi pasamai.}
+		\label{fig:mod_img_test6_c}
+	\end{minipage}
+\end{figure}

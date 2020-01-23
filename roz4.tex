@@ -21,9 +21,9 @@ Obraz wejściowy najpierw konwertowany jest w~obraz w~skali szarości. Otrzymano
 \label{eq:hsl}
 \end{equation}
 
-Po otrzymaniu obrazu w skali szarości jest on binaryzowany progiem o wartości 192, jest to około 3/4 maksymalnej wartości jaką może posiadać piksel.
+Po otrzymaniu obrazu w skali szarości jest on poddawany binaryzacji progiem o wartości 192, jest to około 3/4 maksymalnej wartości jaką może posiadać piksel.
 Podany prób sprawdzał się wystarczająco w celu oddzielenia pasów od jezdni. 
-Rysunek \ref{fig:im_color} przedstawia obraz wejściowy w kolorze. Rysunek \ref{fig:im_grey} obraz w~skali szarości. Obraz \ref{fig:in_ROI} prezentuje obszar wyjsciowy, zbinaryzowany podanym progiem.
+Rysunek \ref{fig:im_color} przedstawia obraz wejściowy w kolorze. Rysunek \ref{fig:im_grey} obraz w~skali szarości. Rysunek \ref{fig:in_ROI} prezentuje obszar wyjściowy, po procesie binaryzacji podanym progiem.
 
 \begin{figure}[h]
 	\centering
@@ -46,12 +46,12 @@ Rysunek \ref{fig:im_color} przedstawia obraz wejściowy w kolorze. Rysunek \ref{
 \section{ROI}
 Celem wyznaczenia ROI jest pozbycie się części danych obrazu, które mogą utrudniać dalszą detekcję pasów ruchu drogowego.
 Obszar zainteresowanie został wyznaczony statycznie przy pomocy dobranych ograniczeń.
-Aby piksel nie został odfiltrowany, czyli jego wartość ustawniona na 0, jego współrzędne muszą spełniać warunki opisane wzorami \eqref{eq:ROI1}. Przy czym $x$ oznacza numer kolumny, w~której znajduje się piksel, a~$y$ numer wiersza. $Width$ oznacza szerokość obrazu, a $High$ wysokość obrazka.
-Ograńiczenia sotały dobrane w taki sposób, aby odfiltrować jak najwięcej tła obrazu i pozostawić praktycznie tylko obiekt pierwszoplanowy, którym jest jezdnia.
+Aby piksel nie został odfiltrowany, czyli jego wartość ustawiona na 0, jego współrzędne muszą spełniać warunki opisane wzorami \eqref{eq:ROI1}. Przy czym $x$ oznacza numer kolumny, w~której znajduje się piksel, a~$y$ numer wiersza. $Width$ oznacza szerokość obrazu, a $High$ wysokość obrazka.
+Ograniczenia zostały dobrane w taki sposób, aby odfiltrować jak najwięcej tła obrazu i pozostawić praktycznie tylko obiekt pierwszoplanowy, którym jest jezdnia.
 Ze względu na znane standardy szerokości pasów ruchu drogowego, zdecydowano się statycznie dobierać ograniczenia.
 
 \begin{equation}
-{\displaystyle {\begin{aligned}\,x\,-\,3/8 \,Width\,<\,y\\[10pt]\,-x\,+\,1/2 \,Width\,<\,y\\[10pt]\,y\,>\,5/8 \,High\end{aligned}}}\\[10pt]
+{\displaystyle {\begin{aligned}\,x\,-\,3/8 \,Width\,<\,y\\[10pt]\,-x\,+\,5/8 \,Width\,<\,y\\[10pt]\,y\,>\,1/2 \,High\end{aligned}}}\\[10pt]
 \label{eq:ROI1}
 \end{equation}
 
@@ -81,7 +81,7 @@ Rysunek \ref{fig:out_ROI_mask} prezentuje obszar (czarny), który zostaje usuni�
 \section{LMPS}
 LMPS (ang. \textit{Lane Marker Pattern Search} -- wyszukiwanie wzorców pasów ruchu) zaimplementowano tak, aby obiekty nienależące do zbioru linii drogowych zostały odfiltrowane. 
 Takimi elementami są między innymi pasy przejścia dla pieszych oraz przedmioty znajdujące się na ulicy. 
-Przed użyciem filtru LMPS, na obrazku przprowadzamy operację zamknięcia w celu uniknięcia błędnego nie rozpoznania pasów wyniku ich zużycia bądź zabrudzenia. Pozbywamy się czarnych pikseli z wnętrza obiektów.
+Przed użyciem filtru LMPS, na obrazku przeprowadzamy operację zamknięcia w celu uniknięcia błędnego nie rozpoznania pasów wyniku ich zużycia bądź zabrudzenia. Pozbywamy się czarnych pikseli z wnętrza obiektów.
 Na~rysunkach \ref{fig:out_ROI} i~\ref{fig:img_1_lmps} został przedstawiony efekt odfiltrowania pasów. 
 Na obrazie wynikowym znajdują białe piksele odnoszą się do wykrytych linii drogowych. 
 Algorytm działa na zasadzie sprawdzania grubości w~poziomie białych części obrazu wejściowego. 

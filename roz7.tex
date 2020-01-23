@@ -1,8 +1,15 @@
 \chapter{Podsumowanie}
 
 \section{Wnioski}
-W ramach pracy inżynierksiej udało się zaimplementować model programowy w języku Matlab. 
+W ramach pracy inżynierskiej udało się zaimplementować model programowy w języku Matlab. 
 Algorytm charakteryzował się jednak zauważalnym czasem obliczeń. Implementacje sprzętowe binaryzacji oraz wyznaczania obszaru zainteresowanie ROI udało się przetestować symulacyjnie. Porównanie wyników z implementacją programową świadczy o tym, że algorytmy zostały poprawnie zaimplementowane.
-Symulacja możliwa była do przeprowadzanie dla obrazów o wymiarach 348x128. Dlatego też nie udało się przeprowadzić symulacji filtru LMPS. Znaczne zmniejsze i zniekształcenie względem orginalnego obrazu powoduje, że filtr nie daje rzetelnych rezultatów. Zamieszczone testy przeprowadzono na modelu programowym.
-Przedstawionego podejscia nie udało się zaimplementować na platformie Zybo Zynq SoC ze względu na zdarzenia losowe.
+Symulacja możliwa była do przeprowadzanie dla obrazów o wymiarach 348x128. Dlatego też nie udało się przeprowadzić symulacji filtru LMPS. Znaczne zmniejszenie i zniekształcenie względem oryginalnego obrazu powoduje, że filtr nie daje rzetelnych rezultatów. Zamieszczone testy przeprowadzono na modelu programowym.
+Przedstawionego podejścia nie udało się zaimplementować na platformie Zybo Zynq SoC ze względu na zdarzenia losowe.
 
+Na podstawie przeprowadzonych testów można stwierdzić, że detekcja linii drogowych za pomocą przedstawionego podejścia jest łatwiejsza dla drogi prostej.
+Światło odbijające się od drogi wprowadzało znaczące utrudnienia w~poprawnym wykrywaniu obu linii pasów ruchu drogowego. Ale pomimo refleksów udawało się względnie wykryć część pasów.
+Dodatkowo sporym utrudnieniem może być zacienienie jednego z pasów przy bardzo słonecznej pogodzie.
+W takim przypadku pas staje się praktycznie nie widoczny i odfiltrowany w procesie binaryzacji.
+Na filmie z~autostrady widać, że podczas manewru zmiany pasa ruchu, program nie jest w stanie wykrywać obu linii, gdyż statyczne roi odfiltrowuje jeden z pasów. Ale dalej możemy posiłkować się detekcją pojedynczego pasa.
+Wprowadzenie sytuacji niestandardowej jak żółte pasy ruchu drogowego niezbyt wpłynęła na detekcją linii drogowych.
+Najbardziej znaczącym czynnikiem na jakość detekcji jezdni jest jakość oświetlenia, w przypadku mocnego i~niejednolitego algorytm nie radził sobie najlepiej.
