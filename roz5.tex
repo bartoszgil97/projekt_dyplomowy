@@ -96,17 +96,18 @@ W~modelu programowym wykorzystano obraz o~rozmiarze 1392x512.
 Tak znaczne zmniejszenie go oraz zniekształcenie powoduje zaburzenie działania filtru. 
 Wynika to z~tego, że działanie filtru jest zależne od wysokości i~szerokości obrazu.
 
-\begin{figure}[h]
+\begin{figure}[!]
 	\centering
 	\includegraphics[scale=0.35]{impl_dev_lmps_2.png}
 	\caption{Schemat blokowy implementacji sprzętowej algorytmu do odfiltrowania elementów nie będących liniami ruchu drogowego.}
 	\label{fig:lmps2}
 \end{figure}
 
+
 \section{Podział obrazu}
 
 W celu wyznaczenia środków ciężkości w określonych strefach na obrazie, wykorzystuje się implementacje sprzętową(dla każdego obszaru oddzielnie) przedstawioną na schemacie \ref{fig:wyzn_sc}. Jeśli, któryś z liczników po przeiterowaniu całego obrazu jest równy 0, środek nie jest wyznaczany.
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.6]{wyzn_sc.png}
 	\caption{Schemat blokowy implementacji sprzętowej algorytmu do wyznaczenia środka ciężkości.}

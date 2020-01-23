@@ -2,18 +2,18 @@
 
 \section{Wstępne przetwarzanie obrazu}
 Pierwszym etapem detekcji pasów ruchu drogowego jest konwersja obrazu kolorowego w~formacie RGB (ang. \textit{Red, Green, Blue} -- czerwony, zielony, niebieski) na~obraz binarny.
-Proces ten ma na celu aby wstępnie otrzymać cechy określające dany obraz oraz ułatwić dalsze jego przetwarzanie. W celu ułatwienia konwersji z kolorowego na binarny, możemy przekonwertować wstępnie obraz do formatu w skali szarości. 
+Proces ten ma na celu aby wstępnie otrzymać cechy określające dany obraz oraz ułatwić dalsze jego przetwarzanie. W~celu ułatwienia konwersji z kolorowego na binarny, możemy przekonwertować wstępnie obraz do formatu w~skali szarości. 
 
-Każdy piksel w~formacie RGB składa się z trzech kanałów, każdy przyjmuje wartośći z~przedziału od 0 do 255, gdzie 0 oznacza brak nasycenia danego koloru, a 255 maksymalne nasycenie.
+Każdy piksel w~formacie RGB składa się z trzech kanałów, każdy przyjmuje wartości z~przedziału od~0 do 255, gdzie 0 oznacza brak nasycenia danego koloru, a 255 maksymalne nasycenie.
 W skali szarości na jeden piksel przypada tylko jeden kanał przyjmujący wartości od 0 do 255.
-Dla obrazu binarnego na jeden piksel również przypada tylko jeden kanał, ale może przyjmowac wartości o lub 1, gdzie 0 to brak nasycenia kolorów, a 1 to pełne nasycenie kolorów.
-Obraz w skali szarości z obrazu w~formacie RGB można otrzymać, np. wyznaczająć średnią wartość trzech kanałów dla każdego z pikseli \cite{4}, lub poprzez wykorzystanie składowej L z formatu HSL (ang. \textit{Hue, Saturation, Lightness} -- odcień, saturacja, jasność) \cite{reichenbach_comparison}.
+Dla obrazu binarnego na jeden piksel również przypada tylko jeden kanał, ale może przyjmować wartości 0 lub 1, gdzie 0~to~brak nasycenia kolorów, a 1 to pełne nasycenie kolorów.
+Obraz w skali szarości z obrazu w~formacie RGB można otrzymać, np. wyznaczając średnią wartość trzech kanałów dla każdego z pikseli \cite{4}, lub poprzez wykorzystanie składowej L z formatu HSL (ang. \textit{Hue, Saturation, Lightness} -- odcień, saturacja, jasność) \cite{reichenbach_comparison}.
 
 
 Jednym z metod konwersji obrazu ze skali szarości do binarnego, który zaproponowano w~pracy \cite{4}, jest zwiększenie kontrastu dzięki wykorzystaniu rozciągania histogramu. Następnie korzystając z filtru Sobel'a uwydatnia się krawędzie obiektów, które ma na celu ułatwienie późniejszej detekcji linii pasa ruchu drogowego. Kolejno wykorzystuje się progowanie polegające na przypisywaniu wartości 0 lub 1 do piksela w zależności od tego czy jego wartość jest mniejsza od wartości progu, czy nie. Operator Sobel'a jest zasadniczo operatorem różniczkowania dyskretnego, zwraca pochodne pierunkowe obrazu w ośmiu kierunkach co 45 stopni \cite{3}, \cite{sobel}.
 
 
-Innym podejściem \cite{reichenbach_comparison} jest wykorzystanie algorytmu Canny Edge Detector w miejscu filtra Sobel'a. Canny Edge łączy w sobie filtr sobela i zdefiniowaną histerezę \cite{cany}. Jeśli wartośc gradientu $G$ \eqref{eq:1} piksela jest powyżej ustalonego progu górnego, zaliczany jest do zbioru krawędzi. Gdy jest poniżej ustalonego progu dolnego piksel jest odrzucany. Gdy znajduje się pomiędzy oboma wspomnianymi progami, piksel zostanie zaliczony do zbioru krawędzi jeśli sąsiaduje z pikselem zaklasyfikowanym jako krawędź.
+Innym podejściem \cite{reichenbach_comparison} jest wykorzystanie algorytmu Canny Edge Detector w miejscu filtra Sobel'a. Canny Edge łączy w sobie filtr sobela i zdefiniowaną histerezę \cite{cany}. Jeśli wartość gradientu $G$ \eqref{eq:1} piksela jest powyżej ustalonego progu górnego, zaliczany jest do zbioru krawędzi. Gdy jest poniżej ustalonego progu dolnego piksel jest odrzucany. Gdy znajduje się pomiędzy oboma wspomnianymi progami, piksel zostanie zaliczony do zbioru krawędzi jeśli sąsiaduje z pikselem zaklasyfikowanym jako krawędź.
 
 \begin{equation}
 G_{x} = \begin{bmatrix} -1 & 0 & +1 \\ -2 & 0 & +2 \\ -1 & 0 & +1 \end{bmatrix}, G_{y} = \begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ +1 & +2 & +1 \end{bmatrix},
@@ -35,7 +35,7 @@ Argument dla drugiej największej wartości funkcji entropii jest równy argumen
 \end{figure}
 
 \section{Wyznaczanie obszaru zainteresowania}
-Pomimo występowania rożnorodnych pasów ruchu w rzeczywistości, część ich cech charakterystycznych pozostaje bez zmian.
+Pomimo występowania różnorodnych pasów ruchu w rzeczywistości, część ich cech charakterystycznych pozostaje bez zmian.
 W wyniku zjawiska perspektywy, czym obiekt jest dalej od kamery tym staje się mniejszy, linie drogowe bliżej kamery, w dolnej części obrazka, są grubsze od tych znajdujących się dalej, w wyższej części obrazu.
 To samo dotyczy całego pasa ruchu. W~dolnym obszarze obrazu występuje większy stosunek obiektu pierwszoplanowego, którym jest pas ruchu w~stosunku do~tła, reprezentowanego przez pobocze i obszar poza drogą.
 Dodatkowo linie znajdujące się bliżej kamery wakazują na obrazie mniejszą tendencję do nagłej zmiany swojego położenia.
