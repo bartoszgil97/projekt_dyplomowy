@@ -13,7 +13,7 @@ Taką operację można wtedy wykonać przy wykorzystaniu dużo mniejszej ilości
 Aplikacja ma na celu detekcję punktów reprezentujących prawą i lewą linie drogową. 
 
 \section{Binaryzacja}
-W celu otrzymania obrazu zbinaryzowanego z~obrazu w~formacie RGB zdecydowano się wykorzystać binaryzację stałym progiem \cite{1}. 
+W celu otrzymania obrazu binarnego z~obrazu w~formacie RGB zdecydowano się wykorzystać binaryzację stałym progiem \cite{1}. 
 Obraz wejściowy najpierw konwertowany jest w~obraz w~skali szarości. Otrzymano wykorzystując składową L z formatu HSL. Wzór na przekształcenie składowych RGB w składową L \eqref{eq:hsl}. 
 
 \begin{equation}
@@ -28,7 +28,7 @@ Rysunek \ref{fig:im_color} przedstawia obraz wejściowy w kolorze. Rysunek \ref{
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{obraz_color.png}
-	\caption{Obraz wejsciowy przed przekształceniami}
+	\caption{Obraz wejściowy przed przekształceniami}
 	\label{fig:im_color}
 \end{figure}
 \begin{figure}[h]
@@ -40,7 +40,7 @@ Rysunek \ref{fig:im_color} przedstawia obraz wejściowy w kolorze. Rysunek \ref{
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{obraz_binarny.png}
-	\caption{Obraz zbinaryzowany przed wyznaczeniem ROI w modelu programowym}
+	\caption{Obraz binarny przed wyznaczeniem ROI w modelu programowym}
 	\label{fig:in_ROI}
 \end{figure}
 \section{ROI}

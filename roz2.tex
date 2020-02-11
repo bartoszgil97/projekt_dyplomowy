@@ -10,7 +10,7 @@ Dla obrazu binarnego na jeden piksel również przypada tylko jeden kanał, ale 
 Obraz w skali szarości z obrazu w~formacie RGB można otrzymać, np. wyznaczając średnią wartość trzech kanałów dla każdego z pikseli \cite{4}, lub poprzez wykorzystanie składowej L z formatu HSL (ang. \textit{Hue, Saturation, Lightness} -- odcień, saturacja, jasność) \cite{reichenbach_comparison}.
 
 
-Jednym z metod konwersji obrazu ze skali szarości do binarnego, który zaproponowano w~pracy \cite{4}, jest zwiększenie kontrastu dzięki wykorzystaniu rozciągania histogramu. Następnie korzystając z filtru Sobel'a uwydatnia się krawędzie obiektów, które ma na celu ułatwienie późniejszej detekcji linii pasa ruchu drogowego. Kolejno wykorzystuje się progowanie polegające na przypisywaniu wartości 0 lub 1 do piksela w zależności od tego czy jego wartość jest mniejsza od wartości progu, czy nie. Operator Sobel'a jest zasadniczo operatorem różniczkowania dyskretnego, zwraca pochodne pierunkowe obrazu w ośmiu kierunkach co 45 stopni \cite{3}, \cite{sobel}.
+Jednym z metod konwersji obrazu ze skali szarości do binarnego, który zaproponowano w~pracy \cite{4}, jest zwiększenie kontrastu dzięki wykorzystaniu rozciągania histogramu. Następnie korzystając z filtru Sobel'a uwydatnia się krawędzie obiektów, które ma na celu ułatwienie późniejszej detekcji linii pasa ruchu drogowego. Kolejno wykorzystuje się progowanie polegające na przypisywaniu wartości 0 lub 1 do piksela w zależności od tego czy jego wartość jest mniejsza od wartości progu, czy nie. Operator Sobel'a jest zasadniczo operatorem różniczkowania dyskretnego, zwraca pochodne kierunkowe obrazu w ośmiu kierunkach co 45 stopni \cite{3}, \cite{sobel}.
 
 
 Innym podejściem \cite{reichenbach_comparison} jest wykorzystanie algorytmu Canny Edge Detector w miejscu filtra Sobel'a. Canny Edge łączy w sobie filtr sobela i zdefiniowaną histerezę \cite{cany}. Jeśli wartość gradientu $G$ \eqref{eq:1} piksela jest powyżej ustalonego progu górnego, zaliczany jest do zbioru krawędzi. Gdy jest poniżej ustalonego progu dolnego piksel jest odrzucany. Gdy znajduje się pomiędzy oboma wspomnianymi progami, piksel zostanie zaliczony do zbioru krawędzi jeśli sąsiaduje z pikselem zaklasyfikowanym jako krawędź.
@@ -21,12 +21,12 @@ G = \sqrt{ G_{x}^{2} + G_{y}^{2} } \label{eq:1}
 \end{equation}
 
 Próg binaryzacji można również dobrać samodzielnie, np. przyjmując, że jego wartość jest równa połowie wartości maksymalnej jaką może mieć piksel \cite{1}. Innym podejściem, zaprezentowanym w~artykule \cite{2}, jest wykorzystanie funkcji entropii lub histogramu.
-Histogram obrazu jest sposobem reprezentacji rozkładu wartości piksleli, z~których składa się obraz. 
+Histogram obrazu jest sposobem reprezentacji rozkładu wartości pikseli, z~których składa się obraz. 
 Może przyjmować formę interpolowanego wykresu, gdzie pozioma oś układu współrzędnych odpowiada za wartość piksela. 
 A pionowa oś reprezentuje liczebność punktów o~wartości równej wartości argumentu znajdującego się na~poziomej osi \cite{histogram}.
 Na rysunku \ref{fig:entr_hist} przedstawiono zestawienie wykresu danego histogramu oraz wykresu funkcji entropii. 
 Funkcje te mają charakterystyczną cechę wspólną. 
-Argument dla drugiej największej wartości funkcji entropii jest równy argumentowi dla jakiego histogram przyjmuje wartość maksymalną. Próg binaryzujący znajduje się pomiędzy dwoma największymi wierzchołkami funkcji entropii.
+Argument dla drugiej największej wartości funkcji entropii jest równy argumentowi dla jakiego histogram przyjmuje wartość maksymalną. Próg binaryzacji znajduje się pomiędzy dwoma największymi wierzchołkami funkcji entropii.
 
 \begin{figure}[h]
 	\includegraphics[scale=0.8]{Entropia.png}
@@ -38,7 +38,7 @@ Argument dla drugiej największej wartości funkcji entropii jest równy argumen
 Pomimo występowania różnorodnych pasów ruchu w rzeczywistości, część ich cech charakterystycznych pozostaje bez zmian.
 W wyniku zjawiska perspektywy, czym obiekt jest dalej od kamery tym staje się mniejszy, linie drogowe bliżej kamery, w dolnej części obrazka, są grubsze od tych znajdujących się dalej, w wyższej części obrazu.
 To samo dotyczy całego pasa ruchu. W~dolnym obszarze obrazu występuje większy stosunek obiektu pierwszoplanowego, którym jest pas ruchu w~stosunku do~tła, reprezentowanego przez pobocze i obszar poza drogą.
-Dodatkowo linie znajdujące się bliżej kamery wakazują na obrazie mniejszą tendencję do nagłej zmiany swojego położenia.
+Dodatkowo linie znajdujące się bliżej kamery wskazują na obrazie mniejszą tendencję do nagłej zmiany swojego położenia.
 Natomiast nawet lekkie zakręty powodują nagłe przesunięcia się obiektów w~górnej części obrazu.
 Podane zależności są charakterystyczne dla obrazów przedstawiających fragment ulicy wzdłuż której porusza się samochód.
 Przyczyniło się to powstanie różnych konceptów wyznaczania ROI (ang. \textit{Region Of Interest} -- obszar zainteresowania).
